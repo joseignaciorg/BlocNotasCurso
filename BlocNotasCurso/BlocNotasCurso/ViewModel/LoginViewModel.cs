@@ -13,13 +13,13 @@ namespace BlocNotasCurso.ViewModel
         public ICommand cmdLogin { get; set; }
         public ICommand cmdAlta{ get; set; }
 
-        public LoginViewModel(INavigator navigator, IServicioDatos servicio, Usuario usuario) : base(navigator, servicio)
+        public LoginViewModel(INavigator navigator, IServicioDatos servicio) : base(navigator, servicio)
         {
          cmdLogin=new Command(IniciarSesion);
          cmdAlta=new Command(NuevoUsuario);   
         }
 
-        public string TituloInicar { get { return "Iniciar sesión"; } }
+        public string TituloIniciar { get { return "Iniciar sesión"; } }
         public string TituloRegistro { get { return "Nuevo usuario"; } }
         public string TituloLogin { get { return "Nombre de usuario"; } }
         public string TituloPassword { get { return "Contraseña"; } }
