@@ -64,7 +64,7 @@ namespace BlocNotasCurso.ViewModel
             //se puede poner de estas dos formas (descomentando el comentario y poniendo el pushmodalasync solo pushAsync)
             //o dejandolo como esta
             //await _navigator.PopToRootAsync();
-            await _navigator.PushModalAsync<PrincipalViewModel>(viewModel =>
+            await _navigator.PushModalAsync<RegistroViewModel>(viewModel =>
             {
                 Titulo = "Nuevo Usuario";
             });
