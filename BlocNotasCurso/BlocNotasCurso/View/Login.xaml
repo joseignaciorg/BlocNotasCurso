@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BlocNotasCurso.View.Login">
+  <StackLayout Orientation="Vertical">
+  <Label Text="{Binding TituloLogin}"></Label>  
+    <Entry Text="{Binding Usuario.Login}"></Entry>
+    <Label Text="{Binding TituloPassword}"></Label>
+    <Entry Text="{Binding Usuario.Password}"></Entry>
+    <StackLayout Orientation="Horizontal">
+      <Button Text="{Binding TituloIniciar}" Command="{Binding cmdLogin}"></Button>
+      <Button Text="{Binding TituloRegistro}" Command="{Binding cmdAlta}"></Button>
+    <!-- Binding le decimos que los datos que tiene que escribir vienen del viewmodel hay dos tipos de binding (hace la funcion de enlazar)
+         oneway:Actualiza la propiedad de destino de enlace (destino) cuando cambia el origen de enlace (origen). 
+         twoway: Hace que los cambios en la propiedad de origen o en la de destino se actualicen automáticamente en el otro-->
+    </StackLayout>
+  </StackLayout>
+  
+</ContentPage>
