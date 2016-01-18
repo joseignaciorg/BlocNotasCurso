@@ -9,7 +9,7 @@ namespace BlocNotasCurso.ViewModel
 {
     public class LoginViewModel:GeneralViewModel//manejar la referenica al navegador, al servicio
     {
-        //comand va a capturar eventos eventos
+        //comand va a capturar eventos
         public ICommand cmdLogin { get; set; }
         public ICommand cmdAlta{ get; set; }
 
