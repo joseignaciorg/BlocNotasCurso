@@ -48,7 +48,7 @@ namespace BlocNotasCurso.ViewModel
                     //await _navigator.PopToRootAsync();
                     await _navigator.PushAsync<PrincipalViewModel>(viewModel =>
                     {
-                        Titulo = "Pantalla principal";
+                        viewModel.Titulo = "Pantalla principal";
                         viewModel.Blocs=new ObservableCollection<Bloc>(blocs);
 
                     });
