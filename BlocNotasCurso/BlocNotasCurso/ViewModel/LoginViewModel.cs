@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 using BlocNotasCurso.Factorias;
 using BlocNotasCurso.Model;
 using BlocNotasCurso.Service;
+using BlocNotasCurso.Util;
 using Xamarin.Forms;
 
 namespace BlocNotasCurso.ViewModel
@@ -13,10 +15,11 @@ namespace BlocNotasCurso.ViewModel
         public ICommand cmdLogin { get; set; }
         public ICommand cmdAlta{ get; set; }
 
-        public LoginViewModel(INavigator navigator, IServicioDatos servicio) : base(navigator, servicio)
+        public LoginViewModel(INavigator navigator, IServicioDatos servicio, Session session) : base(navigator, servicio,session)
         {
          cmdLogin=new Command(IniciarSesion);
-         cmdAlta=new Command(NuevoUsuario);   
+         cmdAlta=new Command(NuevoUsuario);
+            Titulo = "Blocs";
         }
 
         public string TituloIniciar { get { return "Iniciar sesión"; } }
@@ -39,10 +42,15 @@ namespace BlocNotasCurso.ViewModel
                 var us = await _servicio.ValidarUsuario(_usuario);
                 if (us!=null)
                 {
-                    await _navigator.PopToRootAsync();
+                    Session["usuario"] = us;
+                    var blocs = await _servicio.GetBlocs(us.Id);
+                    
+                    //await _navigator.PopToRootAsync();
                     await _navigator.PushAsync<PrincipalViewModel>(viewModel =>
                     {
                         Titulo = "Pantalla principal";
+                        viewModel.Blocs=new ObservableCollection<Bloc>(blocs);
+
                     });
                 }
                 else
@@ -66,7 +74,7 @@ namespace BlocNotasCurso.ViewModel
             //await _navigator.PopToRootAsync();
             await _navigator.PushModalAsync<RegistroViewModel>(viewModel =>
             {
-                Titulo = "Nuevo Usuario";
+                viewModel.Titulo = "Nuevo Usuario";
             });
         }
     }

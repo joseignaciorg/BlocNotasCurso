@@ -1,5 +1,6 @@
 ﻿using BlocNotasCurso.Factorias;
 using BlocNotasCurso.Service;
+using BlocNotasCurso.Util;
 using BlocNotasCurso.ViewModel.Base;
 
 namespace BlocNotasCurso.ViewModel
@@ -8,11 +9,13 @@ namespace BlocNotasCurso.ViewModel
     {
         protected INavigator _navigator;
         protected IServicioDatos _servicio;
+        protected Session Session { get; set; }
 
-        public GeneralViewModel(INavigator navigator, IServicioDatos servicio)
+        public GeneralViewModel(INavigator navigator, IServicioDatos servicio, Session session)
         {
             _navigator = navigator;
             _servicio = servicio;
+            Session = session;
         }
     }
 }

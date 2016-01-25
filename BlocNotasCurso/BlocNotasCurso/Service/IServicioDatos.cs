@@ -18,5 +18,15 @@ namespace BlocNotasCurso.Service
 
         #endregion
 
+        #region Bloc
+
+        Task AddBloc(Bloc bloc);//añado un bloc
+        Task<List<Bloc>> GetBlocs(String usuario);// listo un bloc
+        Task DeleteBloc(Bloc bloc); //borro unm bloc
+        Task UpdateBloc(Bloc bloc);// le paso un bloc actualizado y me lo actualiza
+
+        #endregion
+
+
     }
 }

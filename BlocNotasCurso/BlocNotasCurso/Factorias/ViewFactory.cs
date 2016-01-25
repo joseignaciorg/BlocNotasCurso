@@ -35,7 +35,7 @@ namespace BlocNotasCurso.Factorias
             viewModel = _componentContext.Resolve<TViewModel>();
             var tipoVista = _map[typeof (TViewModel)];
             var vista = _componentContext.Resolve(tipoVista) as Page;
-            if(action==null)
+            if(action!=null)
                 viewModel.SetState(action);
 
             //le digo a la vista que saque la informacion con el bindingcontext del viewmodel

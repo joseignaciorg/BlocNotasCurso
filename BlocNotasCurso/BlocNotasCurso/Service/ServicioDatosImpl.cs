@@ -19,13 +19,15 @@ namespace BlocNotasCurso.Service
             client=new MobileServiceClient(Cadenas.UrlServicio, Cadenas.TokenServicio);
         }
 
+        #region Usuario
+
         public async Task<Usuario> ValidarUsuario(Usuario us)
         {
-            var tabla = client.GetTable<Usuario>();//llamar a una tabla en concreto
+            var tabla = client.GetTable<Usuario>(); //llamar a una tabla en concreto
             var data =
                 await tabla.CreateQuery().Where(o => o.Login == us.Login && o.Password == us.Password).ToListAsync();
 
-            if (data.Count==0)
+            if (data.Count == 0)
             {
                 return null;
             }
@@ -35,20 +37,28 @@ namespace BlocNotasCurso.Service
         public async Task<Usuario> AddUsuario(Usuario us)
         {
             var tabla = client.GetTable<Usuario>();
-            var data = await tabla.CreateQuery().Where(o => o.Login == us.Login).ToListAsync();
-
-            if (data.Count>0)
+            try
             {
-                throw new Exception("Usuario ya registrado");
+                var data = await tabla.CreateQuery().Where(o => o.Login == us.Login).ToListAsync();
+
+                if (data.Count > 0)
+                {
+                    throw new Exception("Usuario ya registrado");
+                }
+            }
+            catch (Exception)
+            {
+                
             }
 
             try
             {
                 await tabla.InsertAsync(us);
+                
             }
             catch (Exception e)
             {
-                throw new Exception("Error al registrar el usuario");
+                return null;
             }
 
             return us;
@@ -63,5 +73,40 @@ namespace BlocNotasCurso.Service
         {
             throw new NotImplementedException();
         }
+        #endregion
+
+        #region Bloc
+
+        public async Task AddBloc(Bloc bloc)
+        {
+            var table = client.GetTable<Bloc>();
+            await table.InsertAsync(bloc);
+            
+        }
+
+        public async Task<List<Bloc>> GetBlocs(string usuario)
+        {
+            var table = client.GetTable<Bloc>();
+            var data = await table.CreateQuery().Where(o => o.IdUsuario == usuario).ToListAsync();
+            return data;
+        }
+
+        public async Task DeleteBloc(Bloc bloc)
+        {
+            var table = client.GetTable<Bloc>();
+            await table.DeleteAsync(bloc);
+        }
+
+        public async Task UpdateBloc(Bloc bloc)
+        {
+            var table = client.GetTable<Bloc>();
+            await table.UpdateAsync(bloc);
+        }
+
+        #endregion
+
+
+
+
     }
 }
